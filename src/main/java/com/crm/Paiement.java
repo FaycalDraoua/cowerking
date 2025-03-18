@@ -20,7 +20,7 @@ public class Paiement {
 
     @ManyToOne
     @JoinColumn(name = "abonnement_id", nullable = false)
-    private abonnement abonnement;
+    private com.crm.abonnement.abonnement abonnement;
 
     @Column(nullable = false)
     private double montant;

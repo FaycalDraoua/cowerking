@@ -1,11 +1,14 @@
 package com.crm.clients;
 
+import com.crm.clientabonnement.ClientAbonnements;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -30,7 +33,7 @@ public class Client {
         @Column(nullable = false)
         private String telephone;
 
-        @Column
+        @Column()
         private LocalDate dateNaissance;  // Alternatively, use LocalDate
 
         @Column
@@ -59,4 +62,8 @@ public class Client {
 
         @Column
         private boolean autorisationImages;
+
+        @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+        @JsonManagedReference
+        private List<ClientAbonnements> clientAbonnements;
 }

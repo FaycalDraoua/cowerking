@@ -18,8 +18,8 @@ public class ClientService {
     }
 
     // Get all clients
-    public List<ClientProjection> getAllClients() {
-        return clientRepository.findAllProjectedBy( );
+    public List<Client> getAllClients() {
+        return clientRepository.findAll();
     }
 
     // Get client by ID
@@ -35,11 +35,42 @@ public class ClientService {
     // Update an existing client
     public Optional<Client> updateClient(UUID id, Client clientDetails) {
         return clientRepository.findById(id).map(client -> {
-            client.setNom(clientDetails.getNom());
-            client.setPrenom(clientDetails.getPrenom());
-            client.setEmail(clientDetails.getEmail());
-            client.setTelephone(clientDetails.getTelephone());
-            // Update other fields as needed...
+            if (clientDetails.getNom() != null && !clientDetails.getNom().isEmpty()) {
+                client.setNom(clientDetails.getNom());
+            }
+            if (clientDetails.getPrenom() != null && !clientDetails.getPrenom().isEmpty()) {
+                client.setPrenom(clientDetails.getPrenom());
+            }
+            if (clientDetails.getEmail() != null && !clientDetails.getEmail().isEmpty()) {
+                client.setEmail(clientDetails.getEmail());
+            }
+            if (clientDetails.getTelephone() != null && !clientDetails.getTelephone().isEmpty()) {
+                client.setTelephone(clientDetails.getTelephone());
+            }
+            if (clientDetails.getDateNaissance() != null) {
+                client.setDateNaissance(clientDetails.getDateNaissance());
+            }
+            if (clientDetails.getAdressePostale() != null && !clientDetails.getAdressePostale().isEmpty()) {
+                client.setAdressePostale(clientDetails.getAdressePostale());
+            }
+            if (clientDetails.getNomEntreprise() != null && !clientDetails.getNomEntreprise().isEmpty()) {
+                client.setNomEntreprise(clientDetails.getNomEntreprise());
+            }
+            if (clientDetails.getStatutProfessionnel() != null && !clientDetails.getStatutProfessionnel().isEmpty()) {
+                client.setStatutProfessionnel(clientDetails.getStatutProfessionnel());
+            }
+            if (clientDetails.getSecteurActivite() != null && !clientDetails.getSecteurActivite().isEmpty()) {
+                client.setSecteurActivite(clientDetails.getSecteurActivite());
+            }
+            if (clientDetails.getIdentifiant() != null && !clientDetails.getIdentifiant().isEmpty()) {
+                client.setIdentifiant(clientDetails.getIdentifiant());
+            }
+            if (clientDetails.getMotDePasse() != null && !clientDetails.getMotDePasse().isEmpty()) {
+                client.setMotDePasse(clientDetails.getMotDePasse());
+            }
+            client.setConsentementCgv(clientDetails.isConsentementCgv());
+            client.setAutorisationNewsletter(clientDetails.isAutorisationNewsletter());
+            client.setAutorisationImages(clientDetails.isAutorisationImages());
             return clientRepository.save(client);
         });
     }

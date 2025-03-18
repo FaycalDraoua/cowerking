@@ -1,8 +1,9 @@
-package com.crm;
+package com.crm.clientabonnement;
 
 
 
 import com.crm.clients.Client;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.util.Date;
@@ -17,12 +18,13 @@ import java.util.UUID;
         private UUID id;
 
         @ManyToOne
+        @JsonBackReference
         @JoinColumn(name = "client_id", nullable = false)
         private Client client;
 
         @ManyToOne
         @JoinColumn(name = "abonnement_id", nullable = false)
-        private abonnement abonnement;
+        private com.crm.abonnement.abonnement abonnement;
 
         @Column(nullable = false)
         @Temporal(TemporalType.DATE)
